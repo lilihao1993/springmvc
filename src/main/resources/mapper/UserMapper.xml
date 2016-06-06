@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.2.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.LoginDAO">
+  <resultMap id="ResultMap" type="cn.springmvc.model.Login" >
+  		<result column="ID" jdbcType="VARCHAR" property="id" />
+  		<result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    	<result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  
+  <!-- 获取用户列表 -->
+  <select id="selectSysUserList"  resultMap="ResultMap">
+    	select * from user
+  </select>
+  
+  <select id="selectUser" resultMap="ResultMap" parameterType="cn.springmvc.model.Login">
+  		select * from user 
+  		<where>
+  			<if test="id!=null">
+  				id = #{id}
+  			</if>
+  			<if test="username!=null">
+  				AND USERNAME = #{username}
+  			</if>
+  			<if test="password!=null">
+  				AND PASSWORD = #{password}
+  			</if>
+  		</where>
+  
+  </select>
+</mapper>
